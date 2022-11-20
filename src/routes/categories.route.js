@@ -5,6 +5,10 @@ const jwtTokenValidate = require('../middlewares/jwtTokenValidate');
 
 const router = express.Router();
 
-router.post('/', jwtTokenValidate, categoriesBodyValidate, controllers.newCategory);
+router.use(jwtTokenValidate);
+
+router.get('/', controllers.categories);
+
+router.post('/', categoriesBodyValidate, controllers.newCategory);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const { login } = require('./login');
 const { newUser, users, userById } = require('./user');
-const { newCategory } = require('./categories');
+const { newCategory, categories } = require('./categories');
 
 module.exports = {
   login,
@@ -8,4 +8,5 @@ module.exports = {
   users,
   userById,
   newCategory,
+  categories,
 };

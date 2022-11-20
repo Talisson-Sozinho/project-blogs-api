@@ -1,10 +1,10 @@
 const models = require('../models');
 
-const addNewCategory = (name) => {
-  const newCategory = models.Category.create({ name });
-  return newCategory;
-};
+const addNewCategory = (name) => models.Category.create({ name });
+
+const getAllCategories = () => models.Category.findAll();
 
 module.exports = {
   addNewCategory,
+  getAllCategories,
 };
