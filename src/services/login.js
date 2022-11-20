@@ -1,13 +1,7 @@
 const jwt = require('jsonwebtoken');
 const models = require('../models');
 const { errorObjectConstructor, BAD_REQUEST } = require('../helpers/errorHelper');
-
-const secret = process.env.JWT_SECRET;
-
-const jwtConfig = {
-  expiresIn: '7d',
-  algorithm: 'HS256',
-};
+const { secret, jwtConfig } = require('../helpers/jwtHelper');
 
 const login = async (email, password) => {
   const result = await models.User.findOne({ where: { email, password } });
