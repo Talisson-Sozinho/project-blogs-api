@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { errorObjectConstructor, CONFLICT } = require('../helpers/errorHelper');
+const { errorObjectConstructor, CONFLICT, NOT_FOUND } = require('../helpers/errorHelper');
 const { secret, jwtConfig } = require('../helpers/jwtHelper');
 const models = require('../models');
 
@@ -20,7 +20,16 @@ const getAllUsers = async () => {
   return users;
 };
 
+const getUserById = async (id) => {
+  const user = await models.User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+
+  if (!user) throw errorObjectConstructor(NOT_FOUND, 'User does not exist');
+
+  return user;
+};
+
 module.exports = {
   registerNewUser,
   getAllUsers,
+  getUserById,
 };

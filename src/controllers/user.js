@@ -11,7 +11,13 @@ const users = async (_req, res) => {
   return res.status(200).json(result);
 };
 
+const userById = async (req, res) => {
+  const result = await services.getUserById(req.params.id);
+  return res.status(200).json(result);
+};
+
 module.exports = {
   newUser,
   users,
+  userById,
 };
