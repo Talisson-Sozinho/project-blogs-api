@@ -1,6 +1,6 @@
 const { errorObjectConstructor, BAD_REQUEST } = require('../helpers/errorHelper');
 
-module.exports = (req, res, next) => {
+module.exports = (req, _res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
