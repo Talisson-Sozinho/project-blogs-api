@@ -1,7 +1,8 @@
 const { login } = require('./login');
-const { newUser } = require('./user');
+const { newUser, users } = require('./user');
 
 module.exports = {
   login,
   newUser,
+  users,
 };

@@ -6,6 +6,12 @@ const newUser = async (req, res) => {
   return res.status(201).json(result);
 };
 
+const users = async (_req, res) => {
+  const result = await services.getAllUsers();
+  return res.status(200).json(result);
+};
+
 module.exports = {
   newUser,
+  users,
 };

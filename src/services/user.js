@@ -15,6 +15,12 @@ const registerNewUser = async (email, password, displayName, image) => {
   return { token };
 };
 
+const getAllUsers = async () => {
+  const users = await models.User.findAll({ attributes: { exclude: ['password'] } });
+  return users;
+};
+
 module.exports = {
   registerNewUser,
+  getAllUsers,
 };
