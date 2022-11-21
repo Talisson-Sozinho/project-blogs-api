@@ -1,6 +1,11 @@
 const { Op } = require('sequelize');
 const Sequelize = require('sequelize');
-const { errorObjectConstructor, BAD_REQUEST, NOT_FOUND } = require('../helpers/errorHelper');
+const { 
+  errorObjectConstructor, 
+  BAD_REQUEST, 
+  NOT_FOUND, 
+  UNAUTHORIZED, 
+} = require('../helpers/errorHelper');
 const models = require('../models');
 const { User, Category } = require('../models');
 const config = require('../config/config');
@@ -63,8 +68,26 @@ const getPostById = async (id) => {
   return post;
 };
 
+const updatePostById = async (id, title, content, userId) => {
+  const postForUpdate = await models.BlogPost.findByPk(id, { raw: true });
+
+  if (postForUpdate.userId !== userId) {
+    throw errorObjectConstructor(UNAUTHORIZED, 'Unauthorized user');
+  }
+
+  const [updatedPost] = await models.BlogPost.update(
+    { title, content },
+    { where: { id } },
+  );
+
+  if (!updatedPost) throw errorObjectConstructor(NOT_FOUND, 'Post does not exist');
+
+  return getPostById(id);
+};
+
 module.exports = {
   createNewPost,
   getAllPosts,
   getPostById,
+  updatePostById,
 };
