@@ -1,7 +1,7 @@
 const express = require('express');
 const errorMiddleware = require('./middlewares/error');
 require('express-async-errors');
-const { loginRoute, userRoute, categoriesRoute } = require('./routes');
+const { loginRoute, userRoute, categoriesRoute, postsRoute } = require('./routes');
 // ...
 
 const app = express();
@@ -13,6 +13,8 @@ app.use('/login', loginRoute);
 app.use('/user', userRoute);
 
 app.use('/categories', categoriesRoute);
+
+app.use('/post', postsRoute);
 
 // ...
 app.use(errorMiddleware);

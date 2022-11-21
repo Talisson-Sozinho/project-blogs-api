@@ -8,7 +8,8 @@ module.exports = (req, _res, next) => {
   if (!authorization) throw errorObjectConstructor(UNAUTHORIZED, 'Token not found');
 
   try {
-    jwt.verify(authorization, secret);
+    const decoded = jwt.verify(authorization, secret);
+    req.userId = decoded.userId;
   } catch (err) {
     throw errorObjectConstructor(UNAUTHORIZED, 'Expired or invalid token');
   }

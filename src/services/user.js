@@ -21,7 +21,7 @@ const getAllUsers = async () => {
 };
 
 const getUserById = async (id) => {
-  const user = await models.User.findOne({ where: { id }, attributes: { exclude: ['password'] } });
+  const user = await models.User.findByPk(id, { attributes: { exclude: ['password'] } });
 
   if (!user) throw errorObjectConstructor(NOT_FOUND, 'User does not exist');
 
