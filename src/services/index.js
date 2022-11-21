@@ -7,7 +7,8 @@ const {
   getPostById, 
   userHasPermission,
   updatePostById, 
-  deletePostById, 
+  deletePostById,
+  searchTermPost,
 } = require('./post');
 
 module.exports = {
@@ -24,4 +25,5 @@ module.exports = {
   updatePostById,
   deletePostById,
   deleteUserById,
+  searchTermPost,
 };

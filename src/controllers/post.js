@@ -42,10 +42,19 @@ const postDelete = async (req, res) => {
   return res.sendStatus(204);
 };
 
+const postSearch = async (req, res) => {
+  const { query: { q } } = req;
+  
+  const result = await services.searchTermPost(q);
+
+  return res.status(200).json(result);
+};
+
 module.exports = {
   newPost,
   posts,
   postById,
   postUpdate,
   postDelete,
+  postSearch,
 };

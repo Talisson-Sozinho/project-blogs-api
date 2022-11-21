@@ -99,6 +99,23 @@ const deletePostById = async (id) => {
   return post;
 };
 
+const searchTermPost = async (term) => {
+  const posts = await models.BlogPost.findAll({
+    where: {
+        [Op.or]: [
+          { title: { [Op.like]: `%${term}%` } }, 
+          { content: { [Op.like]: `%${term}%` } },
+        ],
+      },
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+  });
+  
+  return posts;
+};
+
 module.exports = {
   createNewPost,
   getAllPosts,
@@ -106,4 +123,5 @@ module.exports = {
   userHasPermission,
   updatePostById,
   deletePostById,
+  searchTermPost,
 };

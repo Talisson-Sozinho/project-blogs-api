@@ -10,6 +10,8 @@ router.use(jwtTokenValidate);
 
 router.post('/', newPostValidate, controllers.newPost);
 
+router.get('/search', controllers.postSearch);
+
 router.get('/', controllers.posts);
 
 router.get('/:id', controllers.postById);
