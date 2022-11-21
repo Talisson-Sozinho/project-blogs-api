@@ -13,5 +13,5 @@ module.exports = (req, _res, next) => {
   } catch (err) {
     throw errorObjectConstructor(UNAUTHORIZED, 'Expired or invalid token');
   }
-  next();
+  return next();
 };

@@ -2,9 +2,9 @@ const { Op } = require('sequelize');
 const Sequelize = require('sequelize');
 const { 
   errorObjectConstructor, 
-  BAD_REQUEST, 
-  NOT_FOUND, 
-  UNAUTHORIZED, 
+  BAD_REQUEST,
+  NOT_FOUND,
+  UNAUTHORIZED,
 } = require('../helpers/errorHelper');
 const models = require('../models');
 const { User, Category } = require('../models');
@@ -68,13 +68,19 @@ const getPostById = async (id) => {
   return post;
 };
 
-const updatePostById = async (id, title, content, userId) => {
-  const postForUpdate = await models.BlogPost.findByPk(id, { raw: true });
+const userHasPermission = async (postId, userId) => {
+  const postForAuthorization = await models.BlogPost.findByPk(postId, { raw: true });
 
-  if (postForUpdate.userId !== userId) {
+  if (!postForAuthorization) throw errorObjectConstructor(NOT_FOUND, 'Post does not exist');
+
+  if (postForAuthorization.userId !== userId) {
     throw errorObjectConstructor(UNAUTHORIZED, 'Unauthorized user');
   }
 
+  return true;
+};
+
+const updatePostById = async (id, title, content) => {
   const [updatedPost] = await models.BlogPost.update(
     { title, content },
     { where: { id } },
@@ -85,9 +91,21 @@ const updatePostById = async (id, title, content, userId) => {
   return getPostById(id);
 };
 
+const deletePostById = async (id) => {
+  const post = await models.BlogPost.destroy(
+    { where: { id } },
+  );
+  console.log(post);
+  if (!post) throw errorObjectConstructor(NOT_FOUND, 'Post does not exist');
+
+  return post;
+};
+
 module.exports = {
   createNewPost,
   getAllPosts,
   getPostById,
+  userHasPermission,
   updatePostById,
+  deletePostById,
 };

@@ -25,9 +25,21 @@ const postUpdate = async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
-  const result = await services.updatePostById(id, title, content, req.userId);
+  await services.userHasPermission(id, req.userId);
+
+  const result = await services.updatePostById(id, title, content);
 
   return res.status(200).json(result);
+};
+
+const postDelete = async (req, res) => {
+  const { id } = req.params;
+
+  await services.userHasPermission(id, req.userId);
+
+  await services.deletePostById(id);
+
+  return res.sendStatus(204);
 };
 
 module.exports = {
@@ -35,4 +47,5 @@ module.exports = {
   posts,
   postById,
   postUpdate,
+  postDelete,
 };
