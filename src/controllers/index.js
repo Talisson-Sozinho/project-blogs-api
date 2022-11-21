@@ -1,5 +1,5 @@
 const { login } = require('./login');
-const { newUser, users, userById } = require('./user');
+const { newUser, users, userById, deleteMyself } = require('./user');
 const { newCategory, categories } = require('./categories');
 const { newPost, posts, postById, postUpdate, postDelete } = require('./post');
 
@@ -15,4 +15,5 @@ module.exports = {
   postById,
   postUpdate,
   postDelete,
+  deleteMyself,
 };

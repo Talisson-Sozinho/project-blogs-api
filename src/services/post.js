@@ -92,10 +92,8 @@ const updatePostById = async (id, title, content) => {
 };
 
 const deletePostById = async (id) => {
-  const post = await models.BlogPost.destroy(
-    { where: { id } },
-  );
-  console.log(post);
+  const post = await models.BlogPost.destroy({ where: { id } });
+
   if (!post) throw errorObjectConstructor(NOT_FOUND, 'Post does not exist');
 
   return post;

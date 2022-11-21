@@ -28,8 +28,17 @@ const getUserById = async (id) => {
   return user;
 };
 
+const deleteUserById = async (id) => {
+  const user = await models.User.destroy({ where: { id } });
+
+  if (!user) throw errorObjectConstructor(NOT_FOUND, 'User does not exist');
+
+  return user;
+};
+
 module.exports = {
   registerNewUser,
   getAllUsers,
   getUserById,
+  deleteUserById,
 };

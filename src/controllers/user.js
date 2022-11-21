@@ -16,8 +16,15 @@ const userById = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const deleteMyself = async (req, res) => {
+  await services.deleteUserById(req.userId);
+
+  return res.sendStatus(204);
+};
+
 module.exports = {
   newUser,
   users,
   userById,
+  deleteMyself,
 };

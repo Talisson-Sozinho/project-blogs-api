@@ -1,5 +1,5 @@
 const { login } = require('./login');
-const { registerNewUser, getAllUsers, getUserById } = require('./user');
+const { registerNewUser, getAllUsers, getUserById, deleteUserById } = require('./user');
 const { addNewCategory, getAllCategories } = require('./categories');
 const { 
   createNewPost, 
@@ -23,4 +23,5 @@ module.exports = {
   userHasPermission,
   updatePostById,
   deletePostById,
+  deleteUserById,
 };
